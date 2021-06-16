@@ -3,20 +3,68 @@ import { multiremote } from "webdriverio";
 describe("Test multiple browser", function () {
   let browserUserA: WebdriverIO.Browser;
   let browserUserB: WebdriverIO.Browser;
+  let remoteBrowser: MultiRemoteBrowserAsync;
 
   before(async function () {
-    let remoteBrowser = await multiremote({
-      userA: {
-        capabilities: {
-          browserName: "chrome",
+    if (process.env.CI == "true") {
+      remoteBrowser = await multiremote({
+        userA: {
+          hostname: "localhost",
+          path: "/wd/hub",
+          capabilities: {
+            browserName: "chrome",
+            "goog:chromeOptions": {
+              args: [
+                "--window-size=1920,1080",
+                "--use-fake-ui-for-media-stream",
+                "--use-fake-device-for-media-stream",
+              ],
+            },
+          },
         },
-      },
-      userB: {
-        capabilities: {
-          browserName: "chrome",
+        userB: {
+          hostname: "localhost",
+          path: "/wd/hub",
+          capabilities: {
+            browserName: "chrome",
+            "goog:chromeOptions": {
+              args: [
+                "--window-size=1920,1080",
+                "--use-fake-ui-for-media-stream",
+                "--use-fake-device-for-media-stream",
+              ],
+            },
+          },
         },
-      },
-    });
+      });
+    } else {
+      remoteBrowser = await multiremote({
+        userA: {
+          capabilities: {
+            browserName: "chrome",
+            "goog:chromeOptions": {
+              args: [
+                "--window-size=1920,1080",
+                "--use-fake-ui-for-media-stream",
+                "--use-fake-device-for-media-stream",
+              ],
+            },
+          },
+        },
+        userB: {
+          capabilities: {
+            browserName: "chrome",
+            "goog:chromeOptions": {
+              args: [
+                "--window-size=1920,1080",
+                "--use-fake-ui-for-media-stream",
+                "--use-fake-device-for-media-stream",
+              ],
+            },
+          },
+        },
+      });
+    }
 
     browserUserA = remoteBrowser["userA"];
     browserUserB = remoteBrowser["userB"];
@@ -51,6 +99,6 @@ describe("Test multiple browser", function () {
       timeoutMsg: "'Search' input isn't displayed",
     });
     await searchInput.setValue("webdriverio");
-    await searchInput.keys(["Enter"]);    
+    await searchInput.keys(["Enter"]);
   });
 });
