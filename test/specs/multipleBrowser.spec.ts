@@ -96,7 +96,6 @@ describe("Test multiple browser", function () {
     const title = await browserUserA.$("h1=Free");
     await title.waitForDisplayed({ timeout: 8000 });
 
-    await browserUserA.pause(70000);
     await browserUserB.url("https://google.com");
     const searchInput = await browserUserB.$("input[name='q']");
     await searchInput.waitForDisplayed({
