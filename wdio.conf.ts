@@ -64,11 +64,11 @@ const configToExport = {
       "goog:chromeOptions": {
         args: [
           "--window-size=1920,1080",
-        //   "--use-file-for-fake-video-capture=<filename>",
-        //   "--use-file-for-fake-audio-capture=<filename>",
+          //   "--use-file-for-fake-video-capture=<filename>",
+          //   "--use-file-for-fake-audio-capture=<filename>",
           "--use-fake-ui-for-media-stream",
           "--use-fake-device-for-media-stream",
-        //   "--unsafely-treat-insecure-origin-as-secure=<site_url>"
+          //   "--unsafely-treat-insecure-origin-as-secure=<site_url>"
         ],
       },
       // If outputDir is provided WebdriverIO can capture driver session logs

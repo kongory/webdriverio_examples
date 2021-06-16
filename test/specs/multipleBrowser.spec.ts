@@ -77,20 +77,25 @@ describe("Test multiple browser", function () {
 
   it("Check different sites using two browsers", async function () {
     await browserUserA.url("https://github.com");
-    const pricingMenu = await browserUserA.$(
-      "//details[summary[normalize-space()='Pricing']]"
+    const marketplace = await browserUserA.$(
+      "//a[normalize-space()='Marketplace']"
     );
-    await pricingMenu.waitForDisplayed({
+    await marketplace.waitForDisplayed({
       timeout: 8000,
-      timeoutMsg: "'Pricing' menu isn't displayed",
+      timeoutMsg: "'Marketplace' menu isn't displayed",
     });
-    await pricingMenu.moveTo();
-    const plansLink = await browserUserA.$("a[href*=pricing]");
-    await plansLink.waitForDisplayed({
+    await marketplace.click();
+    const exploreFreeApps = await browserUserA.$(
+      "//a[normalize-space()='Explore free apps']"
+    );
+    await exploreFreeApps.waitForDisplayed({
       timeout: 8000,
-      timeoutMsg: "'Plans' link isn't clickable",
+      timeoutMsg: "'Explore free apps' link isn't clickable",
     });
-    await plansLink.click();
+    await exploreFreeApps.click();
+    const title = await browserUserA.$("h1=Free");
+    await title.waitForDisplayed({ timeout: 8000 });
+
     await browserUserA.pause(70000);
     await browserUserB.url("https://google.com");
     const searchInput = await browserUserB.$("input[name='q']");
