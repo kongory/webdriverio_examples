@@ -81,13 +81,13 @@ describe("Test multiple browser", function () {
       "//details[summary[normalize-space()='Pricing']]"
     );
     await pricingMenu.waitForDisplayed({
-      timeout: 4000,
+      timeout: 8000,
       timeoutMsg: "'Pricing' menu isn't displayed",
     });
     await pricingMenu.moveTo();
     const plansLink = await browserUserA.$("a[href*=pricing]");
     await plansLink.waitForClickable({
-      timeout: 4000,
+      timeout: 8000,
       timeoutMsg: "'Plans' link isn't clickable",
     });
     await plansLink.click();
