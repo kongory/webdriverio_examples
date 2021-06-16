@@ -86,7 +86,7 @@ describe("Test multiple browser", function () {
     });
     await pricingMenu.moveTo();
     const plansLink = await browserUserA.$("a[href*=pricing]");
-    await plansLink.waitForClickable({
+    await plansLink.waitForDisplayed({
       timeout: 8000,
       timeoutMsg: "'Plans' link isn't clickable",
     });
