@@ -43,7 +43,7 @@ describe("Test multiple browser", function () {
       timeoutMsg: "'Plans' link isn't clickable",
     });
     await plansLink.click();
-
+    await browserUserA.pause(70000);
     await browserUserB.url("https://google.com");
     const searchInput = await browserUserB.$("input[name='q']");
     await searchInput.waitForDisplayed({
@@ -51,9 +51,6 @@ describe("Test multiple browser", function () {
       timeoutMsg: "'Search' input isn't displayed",
     });
     await searchInput.setValue("webdriverio");
-    await searchInput.keys(["Enter"]);
-
-    await browserUserA.pause(10000);
-    await browserUserA.pause(10000);
+    await searchInput.keys(["Enter"]);    
   });
 });

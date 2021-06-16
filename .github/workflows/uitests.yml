@@ -9,7 +9,9 @@ jobs:
     
     steps:
     - name: Start selenoid
-      uses: Xotabu4/selenoid-github-action@v1
+      uses: Xotabu4/selenoid-github-action@v2
+      with: selenoid-start-arguments: |
+          --args "-timeout 120s"
     - uses: actions/checkout@v2
     - name: Switch to Node.js 14.16.0
       uses: actions/setup-node@v1
@@ -17,24 +19,24 @@ jobs:
         node-version: 14.16.0
     - name: Run tests
       run: npm cit
-    - name: Get Allure history
-      uses: actions/checkout@v2
-      if: always()
-      continue-on-error: true
-      with:
-        ref: gh-pages
-        path: gh-pages
-    - name: Create report
-      uses: simple-elf/allure-report-action@master
-      if: always()
-      id: allure-report
-      with:
-        allure_results: allure-results
-        allure_history: allure-history
-    - name: Deploy report to Github Pages
-      if: always()
-      uses: peaceiris/actions-gh-pages@v2
-      env:
-        PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PUBLISH_BRANCH: gh-pages
-        PUBLISH_DIR: allure-history
+    # - name: Get Allure history
+    #   uses: actions/checkout@v2
+    #   if: always()
+    #   continue-on-error: true
+    #   with:
+    #     ref: gh-pages
+    #     path: gh-pages
+    # - name: Create report
+    #   uses: simple-elf/allure-report-action@master
+    #   if: always()
+    #   id: allure-report
+    #   with:
+    #     allure_results: allure-results
+    #     allure_history: allure-history
+    # - name: Deploy report to Github Pages
+    #   if: always()
+    #   uses: peaceiris/actions-gh-pages@v2
+    #   env:
+    #     PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     PUBLISH_BRANCH: gh-pages
+    #     PUBLISH_DIR: allure-history
